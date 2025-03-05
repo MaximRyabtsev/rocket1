@@ -1,0 +1,333 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0e7da;
+}
+
+h1 {
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.p_start {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin-bottom: 5px
+}
+
+.start_page {
+    width: 100vw;
+    height: 100vh;
+    background: url('files/first_image.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hackathon-info {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 2rem;
+    margin-bottom: 5px;
+    font-weight: 400;
+    line-height: 1.6; 
+    max-width: 95%;
+    margin: 0 auto;
+}
+
+.details-section {
+    text-align: center;
+    padding: 40px 5%;
+}
+
+.details-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: white;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center; /* Центрируем контейнер с карточками */
+    width: 100%;
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* Карточки выравниваются влево */
+    gap: 20px;
+    max-width: 90%;
+}
+
+.info-card {
+    flex: 1 1 calc(23% - 20px); /* 4 карточки в ряд */
+    min-width: 240px;
+    max-width: 280px;
+    padding: 20px;
+    background: white;
+    border: 3px solid black;
+    border-radius: 15px;
+    text-align: center;
+}
+
+@media (max-width: 1280px) {
+    .info-card {
+        flex: 1 1 calc(25% - 20px); /* 4 карточки в ряд */
+    }
+}
+
+@media (max-width: 1024px) {
+    .info-card {
+        flex: 1 1 calc(33.33% - 20px); /* 3 карточки в ряд */
+    }
+}
+
+@media (max-width: 768px) {
+    .info-card {
+        flex: 1 1 calc(50% - 20px); /* 2 карточки в ряд */
+    }
+}
+
+@media (max-width: 480px) {
+    .info-card {
+        flex: 1 1 100%; /* 1 карточка в ряд */
+    }
+}
+
+
+
+.info-card h2 {
+    text-align: center;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem; /* Уменьшаем заголовок */
+    margin-bottom: 10px; /* Отступ снизу */
+    word-wrap: break-word; /* Перенос слов */
+}
+
+
+.info-card p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.logo-placeholder {
+    width: 100%;
+    aspect-ratio: 1/1; /* Квадрат */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Обрезаем выходящие части */
+    border-radius: 5px;
+}
+
+.logo-placeholder img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* */
+
+/* Секция с вопросами */
+.questions-section {
+    text-align: center;
+    padding: 40px 5%;
+}
+
+/* Заголовок "Вопросы" */
+.questions-section h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: black;
+}
+
+/* Карточка вопроса */
+.question-card {
+    background: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    width: 100%; /* Карточка занимает всю ширину */
+    padding: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+    box-shadow: 5px 5px 0px black; /* Тень для эффекта */
+}
+
+/* Заголовок вопроса */
+.question-card h2 {
+    text-align: left;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Текст ответа */
+.question-card p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.footer {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 200;
+    font-style: normal;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .footer {
+        font-size: 1.2rem;
+        padding: 30px 10px;
+    }
+}
+
+.registration-container {
+    width: 90%; /* 100% - по 5% с каждой стороны */
+    margin: 0 auto; /* Центрируем блок */
+}
+
+/* Кнопка в стиле карточек */
+.registration-btn {
+    min-height: 60px;
+    font-family: "Rubik Mono One", monospace;
+    width: 100%; /* Полная ширина контейнера */
+    background: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 15px 0; /* Убираем боковые отступы */
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+    box-shadow: 5px 5px 0px black; /* Тень для эффекта */
+}
+
+/* Эффект при наведении */
+.registration-btn:hover {
+    background: #d3d3d3; /* Серый фон */
+    color: black;
+}
+
+
+/* Модальное окно */
+.modal {
+    display: none; /* Изначально скрыто */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Затемняем фон */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Контент модального окна */
+.modal-content {
+    background: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px; /* Ширина модального окна */
+    width: 90%; /* 90% ширины экрана */
+    box-shadow: 5px 5px 0px black; /* Тень для эффекта */
+    text-align: center;
+}
+
+/* Кнопка закрытия */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    cursor: pointer;
+    color: black;
+}
+
+/* Скрытие элементов */
+.hidden {
+    display: none;
+}
+
+/* Стили для формы */
+label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+    font-family: "Rubik Mono One", monospace;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 3px solid black;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    min-height: 60px;
+    font-family: "Rubik Mono One", monospace;
+    width: 100%;
+    background: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 15px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s, color 0.3s;
+    box-shadow: 5px 5px 0px black; /* Тень для эффекта */
+}
+
+/* Эффект при наведении */
+.submit-btn:hover {
+    background: #d3d3d3;
+    color: black;
+}
+
+/* Сообщение об успешной регистрации */
+#confirmation-message {
+    font-size: 1rem;
+    color: green;
+    margin-top: 20px;
+}

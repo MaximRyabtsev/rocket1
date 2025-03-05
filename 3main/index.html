@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Минский городской студенчкский хакатон">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="files/icon.png" type="image/png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,900;1,14..32,900&family=Rubik+Mono+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,200&display=swap" rel="stylesheet">
+
+    <title>Хакатон</title>
+</head>
+<body>
+    
+    <main>
+        <section class="start_page">
+            <h1 style="font-size: 3rem; margin-bottom: 30px;">Студенческий хакатон</h1>
+            <p class="p_start">Минск, ул. Пушкина 17</p>
+            <p class="p_start">Октябрь 5-6</p>
+        </section>
+
+        <section style="text-align: center; padding: 50px 5%;">
+            <h1 style="font-size: 3rem;">Хакатон?</h1>
+            <p class="hackathon-info">
+                Хакатон — мероприятие длительностью в несколько дней, на котором люди, организованные в 
+                <span style="color: #007BFF; font-weight: bold;">небольшие группы</span> (до 5 человек), придумывают 
+                <span style="color: #28A745; font-weight: bold;">решения</span> задач по заданной теме, лучшие получают призы.
+            </p>
+        </section>
+
+        <div class="registration-container">
+            <button class="registration-btn">Регистрация</button>
+        </div>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h1 style="margin-bottom: 4%;">Регистрация</h1>
+                <form id="registration-form">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="phone">Номер телефона:</label>
+                    <input type="tel" id="phone" name="phone" required>
+
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <button type="submit" class="submit-btn">Отправить</button>
+                </form>
+                <p class="p_start" style="font-weight: 500;" id="confirmation-message" class="hidden">Ваша заявка принята</p>
+            </div>
+        </div>
+
+        
+
+        <section class="details-section">
+            <h1 style="color: #000; font-size: 3rem;">Детали</h1>
+            <div class="cards-wrapper">
+                <div class="cards-container">
+                    <div class="info-card">
+                        <h2>О нас</h2>
+                        <p>Нас 20 человек и мы идем на МРК</p>
+                    </div>
+                    <div class="info-card">
+                        <h2>О нас</h2>
+                        <p>Нас 20 человек и мы идем на МРК Нас 20 человек и мы идем на МРКНас 20 человек и мы идем на МРКНас 20 человек и мы идем на МРК</p>
+                    </div>
+                    <div class="info-card">
+                        <h2>О нас</h2>
+                        <p>Нас 20 человек и мы идем на МРК</p>
+                    </div>
+                    <div class="info-card">
+                        <h2>О нас</h2>
+                        <p>Нас 20 человек и мы идем на МРК</p>
+                    </div>
+                    <div class="info-card">
+                        <h2>О нас</h2>
+                        <p>Нас 20 человек и мы идем на МРК</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+
+        <section class="details-section">
+            <h1 style="color: #000; font-size: 3rem;">Спонсоры</h1>
+            <div class="cards-wrapper">
+                <div class="cards-container">
+                    <div class="info-card">
+                        <h2>Яндекс</h2>
+                        <div class="logo-placeholder">
+                            <img src="files/logo1.png" alt="Логотип Спонсора 1">
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h2>Спонсор 2</h2>
+                        <div class="logo-placeholder">
+                            <img src="logo2.png" alt="Логотип Спонсора 2">
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h2>Спонсор 3</h2>
+                        <div class="logo-placeholder">
+                            <img src="logo3.png" alt="Логотип Спонсора 3">
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <h2>Спонсор 4</h2>
+                        <div class="logo-placeholder">
+                            <img src="logo4.png" alt="Логотип Спонсора 4">
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </section>
+
+        <section class="details-section">
+            <h1 style="color: #000; font-size: 3rem;">Эксперты</h1>
+        <div class="cards-wrapper">
+            <div class="cards-container">
+                <div class="info-card">
+                    <h2>Бен</h2>
+                    <div class="logo-placeholder">
+                        <img src="files/icon.png" alt="Логотип Спонсора 1">
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h2>Спонсор 2</h2>
+                    <div class="logo-placeholder">
+                        <img src="logo2.png" alt="Логотип Спонсора 2">
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h2>Спонсор 3</h2>
+                    <div class="logo-placeholder">
+                        <img src="logo3.png" alt="Логотип Спонсора 3">
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h2>Спонсор 4</h2>
+                    <div class="logo-placeholder">
+                        <img src="logo4.png" alt="Логотип Спонсора 4">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+
+        <section class="questions-section">
+            <h1>Вопросы</h1>
+            <div class="question-card">
+                <h2>Как принять участие?</h2>
+                <p>Для участия необходимо зарегистрироваться на сайте и подтвердить свою заявку.</p>
+            </div>
+            <div class="question-card">
+                <h2>Кто может участвовать?</h2>
+                <p>Любой желающий, вне зависимости от уровня подготовки.</p>
+            </div>
+            <div class="question-card">
+                <h2>Какие призы?</h2>
+                <p>Призовой фонд включает денежные призы, гаджеты и сертификаты.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>2025</p>
+    </footer>
+    
+    <script>
+        // Получаем элементы модального окна и кнопки
+        const modal = document.getElementById("modal");
+        const closeBtn = document.querySelector(".close-btn");
+        const openModalBtn = document.querySelector(".registration-btn"); // кнопка "Регистрация"
+        const submitBtn = document.querySelector(".submit-btn");
+        const confirmationMessage = document.getElementById("confirmation-message");
+        const form = document.getElementById("registration-form");
+    
+        // Функция для открытия модального окна
+        openModalBtn.addEventListener("click", () => {
+            modal.style.display = "flex";
+        });
+    
+        // Функция для закрытия модального окна
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+    
+        // Закрытие модального окна при клике за пределами
+        window.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    
+        // Логика отправки формы (просто показываем сообщение)
+        form.addEventListener("submit", (event) => {
+            event.preventDefault(); // Не отправляем форму
+            confirmationMessage.classList.remove("hidden");
+            form.reset(); // Сбросить поля формы
+        });
+    </script>
+    
+</body>
+</html>
