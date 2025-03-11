@@ -55,7 +55,10 @@ uint8_t tx_buf[10];
 uint16_t pageAddr = 0x123;
 const char wmsg[] = "This is a test message";
 char rmsg[sizeof(wmsg)] = {0};
+uint32_t cnt = 0;
 
+uint8_t status_cmd[1] = { 0xD7 };
+uint8_t status_res[2];
 uint8_t rcmd[5];
 // opcode
 
@@ -133,11 +136,22 @@ int main(void)
   // rcmd[2] = (pageAddr << 1) & 0xFE;
   // rcmd[3] = 0x00;
   csset();
-HAL_SPI_Transmit(&hspi1, wcmd, sizeof(wcmd),
+int res1 = HAL_SPI_Transmit(&hspi1, wcmd, sizeof(wcmd),
          HAL_MAX_DELAY);
-HAL_SPI_Transmit(&hspi1, &wmsg, sizeof(wmsg),
+int res2 = HAL_SPI_Transmit(&hspi1, &wmsg, sizeof(wmsg),
          HAL_MAX_DELAY);
   // 00PPPPPP PPPPPPBB BBBBBBBB
+csreset();
+csset();
+HAL_SPI_Transmit(&hspi1, status_cmd, sizeof(status_cmd),
+                 HAL_MAX_DELAY);
+do {
+    cnt++;
+    res1 = HAL_SPI_Receive(&hspi1, status_res, sizeof(status_res),
+                           HAL_MAX_DELAY);
+    if(res1 != HAL_OK)
+        break;
+} while (! (status_res[0] & 0x80)); // check RDY flag
 csreset();
 HAL_Delay(200);
 
