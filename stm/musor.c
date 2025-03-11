@@ -52,6 +52,13 @@ UART_HandleTypeDef huart1;
 uint8_t d[2]={'d', 'd'};
 uint8_t rx_buf[1025];
 uint8_t tx_buf[10];
+uint16_t pageAddr = 0x123;
+const char wmsg[] = "This is a test message";
+char rmsg[sizeof(wmsg)] = {0};
+
+uint8_t rcmd[5];
+// opcode
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -105,13 +112,44 @@ int main(void)
   MX_USART1_UART_Init();
   MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  reset();
-  csset();
-  tx_buf[0] = Jid;
-  HAL_SPI_Transmit(&hspi1, tx_buf, 1, HAL_MAX_DELAY);
-  HAL_SPI_Receive(&hspi1, rx_buf, 5, HAL_MAX_DELAY);
 
- 	  HAL_UART_Transmit(&huart1, rx_buf, 5, 5000);
+  reset();
+  uint8_t wcmd[4];
+  // opcode
+  wcmd[0] = 0x82; // 0x82 for buffer 1, 0x85 for buffer 2
+
+  wcmd[1] = (pageAddr >> 6) & 0x3F;
+  wcmd[2] = (pageAddr << 2) & 0xFC;
+  wcmd[3] = 0x00;
+
+  rcmd[1] = (pageAddr >> 6) & 0x3F;
+  rcmd[2] = (pageAddr << 2) & 0xFC;
+  rcmd[3] = 0x00;
+
+  // one dummy byte
+  rcmd[4] = 0x00;
+  // for 512 bytes/page chip address is transfered in form:
+  // rcmd[1] = (pageAddr >> 7) & 0x1F;
+  // rcmd[2] = (pageAddr << 1) & 0xFE;
+  // rcmd[3] = 0x00;
+  csset();
+HAL_SPI_Transmit(&hspi1, wcmd, sizeof(wcmd),
+         HAL_MAX_DELAY);
+HAL_SPI_Transmit(&hspi1, &wmsg, sizeof(wmsg),
+         HAL_MAX_DELAY);
+  // 00PPPPPP PPPPPPBB BBBBBBBB
+csreset();
+HAL_Delay(200);
+
+csset();
+HAL_SPI_Transmit(&hspi1, rcmd, sizeof(rcmd),
+                        HAL_MAX_DELAY);
+HAL_SPI_Receive(&hspi1, &rmsg, sizeof(rmsg),
+                       HAL_MAX_DELAY);
+csreset();
+
+HAL_UART_Transmit(&huart1, &rmsg, sizeof(rmsg),
+                      HAL_MAX_DELAY);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -188,7 +226,7 @@ static void MX_SPI1_Init(void)
   hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
   hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi1.Init.NSS = SPI_NSS_SOFT;
-  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
+  hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
   hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
@@ -219,7 +257,7 @@ static void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 9600;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
