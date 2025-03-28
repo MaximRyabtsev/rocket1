@@ -88,9 +88,9 @@ typedef struct
 }w25_info_t;
 
 w25_info_t  w25_info;
-uint8_t buf[10];
+uint8_t buf[10]; //буфер для передачи
 char str1[30];
-uint8_t rx_buf[1025];
+uint8_t rx_buf[1025]; // для приема
 
 
 /* USER CODE END PV */
@@ -108,17 +108,17 @@ static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN 0 */
 
 
-void SPI1_Send (uint8_t *dt, uint16_t cnt)
+void SPI1_Send (uint8_t *dt, uint16_t cnt) //мусорная обертка
 {
-  HAL_SPI_Transmit (&hspi1, dt, cnt, 5000);
+  HAL_SPI_Transmit (&hspi1, dt, cnt, 5000); 
 }
 
-void SPI1_Recv (uint8_t *dt, uint16_t cnt)
+void SPI1_Recv (uint8_t *dt, uint16_t cnt) //мусорная обертка 2
 {
   HAL_SPI_Receive (&hspi1, dt, cnt, 5000);
 }
 
-void W25_Reset (void)
+void W25_Reset (void) // сброс микры, по идее не стирает данные
 {
   cs_set();
   buf[0] = W25_ENABLE_RESET;
@@ -127,7 +127,7 @@ void W25_Reset (void)
   cs_reset();
 }
 
-void W25_Read_Data(uint32_t addr, uint8_t* data, uint32_t sz)
+void W25_Read_Data(uint32_t addr, uint8_t* data, uint32_t sz) //считывание данных размером sz по адресу addr
 {
   cs_set();
   buf[0] = W25_READ;
@@ -139,7 +139,7 @@ void W25_Read_Data(uint32_t addr, uint8_t* data, uint32_t sz)
   cs_reset();
 }
 
-uint32_t W25_Read_ID(void)
+uint32_t W25_Read_ID(void) считывание jid
 {
   uint8_t dt[4];
   buf[0] = W25_GET_JEDEC_ID;
@@ -150,9 +150,9 @@ uint32_t W25_Read_ID(void)
   return (dt[0] << 16) | (dt[1] << 8) | dt[2];
 }
 
-void W25_Ini(void)
+void W25_Ini(void) // инициализация, передачу в uart можно убрать
 {
-  HAL_Delay(100);
+  HAL_Delay(100); // хз зачем
   W25_Reset();
   unsigned int id = W25_Read_ID();
   w25_info.PageSize=256;
@@ -183,7 +183,7 @@ void W25_Ini(void)
 
 }
 
-void W25_Write_Enable(void)
+void W25_Write_Enable(void) // разрешить запись, нам это мб и не понадобится
 {
 	cs_set();
   buf[0] = W25_WRITE_ENABLE;
@@ -192,7 +192,7 @@ void W25_Write_Enable(void)
 	HAL_Delay(1);
 }
 
-void W25_Write_Disable(void)
+void W25_Write_Disable(void)// запретить запись, нам это мб и не понадобится
 {
 	cs_set();
   buf[0] = W25_WRITE_DISABLE;
@@ -200,9 +200,9 @@ void W25_Write_Disable(void)
 	cs_reset();
 	HAL_Delay(1);
 }
-	void W25_Wait_Write_End(void)
+	void W25_Wait_Write_End(void) // ожидание конца записи
 	{
-	  HAL_Delay(1);
+	  HAL_Delay(1); // ну что за мусор
 	  cs_set();
 	  buf[0] = W25_READ_STATUS_1;
 	  SPI1_Send(buf, 1);
@@ -215,7 +215,7 @@ void W25_Write_Disable(void)
 	  cs_reset();
 	}
 
-	void W25_Erase_Sector(uint32_t addr)
+	void W25_Erase_Sector(uint32_t addr) // стереть сектор начиная с addr
 	{
 	  W25_Wait_Write_End();
 	  W25_Set_Block_Protect(0x00);
@@ -244,7 +244,8 @@ void W25_Write_Disable(void)
 	    W25_Set_Block_Protect(0x0F);
 
 	}
-	void W25_Erase_Block(uint32_t addr)
+		      
+	void W25_Erase_Block(uint32_t addr) // аналогично для блока
 	{
 	  W25_Wait_Write_End();
 	  addr = addr * w25_info.BlockSize;
@@ -271,7 +272,7 @@ void W25_Write_Disable(void)
 	  HAL_Delay(1);
 	}
 
-	void W25_Erase_Chip(void)
+	void W25_Erase_Chip(void) // полностью чип
 	{
 	  W25_Wait_Write_End();
 	  W25_Write_Enable();
@@ -282,7 +283,8 @@ void W25_Write_Disable(void)
 	  W25_Wait_Write_End();
 	  HAL_Delay(10);
 	}
-	void W25_Write_Data(uint32_t addr, uint8_t* data, uint32_t sz)
+
+	void W25_Write_Data(uint32_t addr, uint8_t* data, uint32_t sz) // записать data размером sz начиная с адреса addr
 	{
 	  W25_Wait_Write_End();
 	  W25_Set_Block_Protect(0x00);
@@ -299,7 +301,8 @@ void W25_Write_Disable(void)
 	      W25_Write_Disable();
 	      W25_Set_Block_Protect(0x0F);
 	}
-	void W25_Set_Block_Protect(uint8_t val)
+
+	void W25_Set_Block_Protect(uint8_t val) // зачем то защита одного блока
 	{
 	    buf[0] = 0x50;
 	    cs_set();
@@ -311,6 +314,7 @@ void W25_Write_Disable(void)
 	    SPI1_Send(buf, 2);
 	    cs_reset();
 	}
+
 /* USER CODE END 0 */
 
 /**
@@ -348,8 +352,8 @@ int main(void)
 
   W25_Ini();
   W25_Erase_Chip();
-  W25_Write_Data(0x00000000, 0, 1);
-  for(uint16_t k=0; k<4; k++)
+
+  for(uint16_t k=0; k<4; k++) // считываем всю флешку с выводом в uart, можно заюзать чтобы после полета считывать данные
           {
             W25_Read_Data(k*256, rx_buf, 256);
             for(uint8_t i=0; i<16; i++)
@@ -376,8 +380,6 @@ int main(void)
             }
             HAL_UART_Transmit(&huart1,(uint8_t*)"\r\n",2,0x1000);
           }
-  W25_Read_Data(0x00000000, rx_buf, 1);
-  HAL_UART_Transmit(&huart1,rx_buf ,1,0x1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
